@@ -121,37 +121,91 @@ void postorderBST(tree *root){
     }
 }
 
-int main(){
+int main() {
     tree *root = NULL;
-    int x ;
-    while(1){
-        printf("\n Enter the data to be inserted in the tree (0 to exit) : ");
-        scanf("%d",&x);
-        if(x==0) break;
-        root = insertBST(root,x);
+    int choice, x;
+    tree *temp;
+
+    while(1) {
+        printf("\n\n----- BINARY SEARCH TREE MENU -----");
+        printf("\n1. Insert a node");
+        printf("\n2. Preorder Traversal");
+        printf("\n3. Inorder Traversal");
+        printf("\n4. Postorder Traversal");
+        printf("\n5. Search for a node");
+        printf("\n6. Delete a node");
+        printf("\n7. Find Minimum value");
+        printf("\n8. Find Maximum value");
+        printf("\n9. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                printf("\nEnter the data to be inserted: ");
+                scanf("%d", &x);
+                root = insertBST(root, x);
+                break;
+
+            case 2:
+                printf("\nPreorder traversal: ");
+                if(root == NULL) printf("Tree is empty");
+                else preorderBST(root);
+                break;
+
+            case 3:
+                printf("\nInorder traversal: ");
+                if(root == NULL) printf("Tree is empty");
+                else inorderBST(root);
+                break;
+
+            case 4:
+                printf("\nPostorder traversal: ");
+                if(root == NULL) printf("Tree is empty");
+                else postorderBST(root);
+                break;
+
+            case 5:
+                printf("\nEnter the data to be searched: ");
+                scanf("%d", &x);
+                temp = searchBST(root, x);
+                if(temp != NULL) {
+                    printf("\n%d is found in the tree", temp->data);
+                } else {
+                    printf("\n%d is not found in the tree", x);
+                }
+                break;
+
+            case 6:
+                printf("\nEnter the data to be deleted: ");
+                scanf("%d", &x);
+                root = deleteBST(root, x);
+                printf("\nNode deleted (if it existed).");
+                break;
+
+            case 7:
+                if(root == NULL) {
+                    printf("\nTree is empty. No minimum value.");
+                } else {
+                    printf("\nMinimum value in the tree: %d", findminBST(root)->data);
+                }
+                break;
+
+            case 8:
+                if(root == NULL) {
+                    printf("\nTree is empty. No maximum value.");
+                } else {
+                    printf("\nMaximum value in the tree: %d", findmaxBST(root)->data);
+                }
+                break;
+
+            case 9:
+                printf("\nExiting...\n");
+                return 0;
+
+            default:
+                printf("\nInvalid choice! Please try again.");
+        }
     }
-    printf("\n Preorder traversal : ");
-    preorderBST(root);
-    printf("\n Inorder traversal : ");
-    inorderBST(root);
-    printf("\n Postorder traversal : ");
-    postorderBST(root);
-    printf("\n Enter the data to be searched in the tree : ");
-    scanf("%d",&x);
-    tree *temp = searchBST(root,x);
-    if(temp!=NULL){
-        printf("\n %d is found in the tree",temp->data);
-    }
-    else{
-        printf("\n %d is not found in the tree",x);
-    }
-    printf("\n Enter the data to be deleted from the tree : ");
-    scanf("%d",&x);
-    root = deleteBST(root,x);
-    printf("\n Inorder traversal after deletion : ");
-    inorderBST(root);
-    printf("\n Minimum value in the tree : %d",findminBST(root)->data);
-    printf("\n Maximum value in the tree : %d",findmaxBST(root)->data);
-    printf("\n");
     return 0;
 }
